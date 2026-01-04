@@ -1,142 +1,167 @@
-# 🧠 Pixel-Eye
+# Pixel-Eye
 
 ![Status](https://img.shields.io/badge/Status-In%20Development-yellow)
 ![Python](https://img.shields.io/badge/Python-3.8%2B-blue)
-![License](https://img.shields.io/badge/License-MIT-green)
 ![OpenCV](https://img.shields.io/badge/OpenCV-4.x-brightgreen)
+![License](https://img.shields.io/badge/License-MIT-green)
 ![Platform](https://img.shields.io/badge/Platform-Windows%20%7C%20Linux-lightgrey)
 
-## Description
+A **real-time computer vision system for game interface analysis**, designed to extract structured information from on-screen elements and react to visual events with deterministic, configurable logic.
 
-**Pixel-Eye** is a Python-based computer vision application for real-time analysis of game interfaces. The system detects and interprets visual elements (HUD, status, events) providing intelligent assistance to players through notifications, alerts, and tactical analysis.
+Pixel-Eye focuses on **perception, signal extraction, and event-driven responses**, treating the game as a black box and relying exclusively on visual input.
 
-## Objective
+---
 
-- **Analyze** game graphical interfaces (HUD) in real-time
-- **Detect** critical visual events and patterns (low health, ammo, enemies)
-- **React** with smart notifications, automated commands, and visual overlays
-- **Assist** players with tactical analysis and data-driven suggestions
+## Overview
 
-## Features
+Pixel-Eye monitors game windows in real time and processes HUD elements such as health, resources, alerts, and contextual signals.
 
-### 🟢 Core Features
-- **Live HUD Reader** - Real-time detection of health, mana, ammo, and status
-- **Critical State Alerts** - Audio and visual notifications for important events
-- **Visual Assistant** - Enemy detection and movement analysis
-- **Tactical Analysis** - Data collection for optimized strategy suggestions
+Core goals:
+- Real-time visual perception using screen capture
+- Deterministic detection of HUD states and events
+- Configurable alerting and response mechanisms
+- Clear separation between capture, processing, and reaction layers
 
-### 🔵 In Development
-- **Data Recording** - Match logging and replay system
-- **TTS Integration** - Customizable spoken alerts
-- **Machine Learning** - Advanced detection models with CNN
-- **Customizable Overlay** - Adaptive visual interface over the game
+The project prioritizes **engineering discipline and system clarity** over automation gimmicks.
 
-## Technology Stack
+---
 
-| Technology | Version | Usage |
-|------------|---------|-------|
-| **OpenCV** | 4.x | Real-time image capture and processing |
-| **Pillow** | 10.x | Image manipulation and optimization |
-| **PyAutoGUI** | 0.9.x | Game window detection and capture |
-| **pytesseract** | 0.3.x | OCR for interface text extraction |
-| **NumPy** | 1.24.x | Pixel analysis and comparison |
-| **PyTorch** | 2.x | Complex detection models (optional) |
-| **pygame** | 2.5.x | Debug interface and visual overlay |
+## Capabilities
+
+### Implemented
+- Screen capture and region-of-interest management
+- OpenCV-based image preprocessing
+- Deterministic pixel and pattern analysis
+- Configurable thresholds and detection rules
+- Event-driven alert pipeline (visual/audio hooks)
+
+### In Progress
+- OCR-based text extraction for dynamic HUD elements
+- Overlay rendering for diagnostics and feedback
+- Data recording for post-match analysis
+- ML-based detectors for complex visual patterns
+
+---
 
 ## Architecture
 
 ```
 pixel-eye/
-├── 📂 core/
-│   ├── capture.py       # Screen capture module
-│   ├── processor.py     # Processing pipeline
-│   └── detector.py      # Event detection
-├── 📂 modules/
-│   ├── hud_reader.py    # HUD reading
-│   ├── alerts.py        # Alert system
-│   └── analytics.py     # Tactical analysis
-├── 📂 utils/
-│   ├── config.py        # Configuration
-│   └── helpers.py       # Helper functions
-├── 📂 tests/            # Unit tests
-└── main.py              # Main application
+├── core/               # Capture and processing primitives
+│   ├── capture.py
+│   ├── processor.py
+│   └── detector.py
+│
+├── modules/            # Domain-specific logic
+│   ├── hud_reader.py
+│   ├── alerts.py
+│   └── analytics.py
+│
+├── utils/              # Configuration and helpers
+│   ├── config.py
+│   └── helpers.py
+│
+├── tests/              # Validation and diagnostics
+└── main.py             # Application entry point
 ```
+
+The architecture enforces **strict separation of concerns**, allowing individual modules to evolve independently.
+
+---
+
+## Technology Stack
+
+- **Python 3.8+**
+- **OpenCV** — real-time image processing
+- **NumPy** — pixel-level analysis
+- **Pillow** — image manipulation
+- **PyAutoGUI** — window detection and capture
+- **Tesseract OCR** — text extraction (optional)
+- **PyTorch** — ML-based detectors (optional)
+- **pygame** — debug rendering and overlays
+
+---
 
 ## Installation
 
 ```bash
-# Clone the repository
 git clone https://github.com/your-username/pixel-eye.git
 cd pixel-eye
 
-# Create a virtual environment
 python -m venv venv
-source venv/bin/activate  # Linux/Mac
-# or
-venv\Scripts\activate  # Windows
+source venv/bin/activate    # Linux / macOS
+venv\Scripts\activate     # Windows
 
-# Install dependencies
 pip install -r requirements.txt
-
-# Configure Tesseract OCR (if needed)
-# Windows: https://github.com/UB-Mannheim/tesseract/wiki
-# Linux: sudo apt-get install tesseract-ocr
 ```
 
-## Basic Usage
+Optional OCR dependency:
+- Windows: https://github.com/UB-Mannheim/tesseract/wiki
+- Linux: `sudo apt install tesseract-ocr`
+
+---
+
+## Usage Example
 
 ```python
 from pixel_eye import PixelEye
 
-# Initialize Pixel-Eye
 eye = PixelEye(game_window="Game Name")
 
-# Set region of interest
 eye.set_roi(x=100, y=50, width=800, height=600)
 
-# Start monitoring
-eye.start_monitoring(
+eye.start(
     detect_health=True,
-    alert_threshold=30,  # Alert when health < 30%
+    health_threshold=30,
     enable_overlay=True
 )
 ```
 
-## Use Cases
-
--  **Assistive Gaming** - Help players with visual impairments
--  **Automation** - Detect "Game Over" for automatic restart
--  **Competitive Analysis** - Optimize performance in eSports
--  **AI Research** - Train reinforcement learning models
-
-## Roadmap
-
-- [ ] Basic screen capture system
-- [ ] Pixel comparison detection
-- [ ] Integrated OCR for text reading
-- [ ] Configurable alert system
-- [ ] GUI for configuration
-- [ ] Full multi-platform support
-- [ ] Pre-trained ML models
-- [ ] REST API for external integration
-
-## Contributing
-
-Contributions are welcome! Please read [CONTRIBUTING.md](CONTRIBUTING.md) for details on our code of conduct and the process for submitting pull requests.
-
-## License
-
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
-
-## ⚠️ Disclaimer
-
-This software is intended for educational and accessibility purposes. Usage in online games must comply with each game's Terms of Service. The developers are not responsible for misuse.
-
-## Contact
-
-For questions, suggestions, or partnerships, please open an [issue](https://github.com/your-username/pixel-eye/issues) on GitHub.
+All thresholds, regions, and behaviors are configurable.
 
 ---
 
-<p align="center">
-  Built with ❤️ for the gaming community
+## Use Cases
+
+- Assistive systems for accessibility
+- Automated detection of game states (e.g. end-of-match)
+- Competitive analysis and performance feedback
+- Vision-based environments for AI research
+
+---
+
+## Scope and Intent
+
+This project is not intended as:
+- A cheat engine
+- An input automation framework
+- A plug-and-play competitive advantage tool
+
+It is intended as:
+- A real-time perception layer for interactive systems
+- A reference architecture for vision-driven agents
+- A foundation for experimentation in applied computer vision
+
+---
+
+## Roadmap
+
+- ROI auto-calibration
+- Robust OCR pipelines
+- Overlay customization
+- ML-assisted pattern detection
+- Cross-game configuration profiles
+- External event integration (API/hooks)
+
+---
+
+## Disclaimer
+
+This software is provided for **educational, research, and accessibility purposes**.  
+Usage must comply with the terms of service of any third-party software it interacts with.
+
+---
+
+## License
+
+MIT License.
